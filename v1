@@ -5,7 +5,7 @@ MakeWindow({
     Animation = "Starvast Productions"
   },
   Key = {
-    KeySystem = TRUE,
+    KeySystem = true,
     Title = "Key System",
     Description = "",
     KeyLink = "",
