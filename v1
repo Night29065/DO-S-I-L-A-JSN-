@@ -20,8 +20,3 @@ MakeWindow({
 })
 
 local Main = MakeTab({Name = "Esp"})
-
-
-
-
-local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
