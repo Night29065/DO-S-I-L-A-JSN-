@@ -23,4 +23,5 @@ local Main = MakeTab({Name = "Esp"})
 
 
 
-Local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/ESPs/main/3D%20Drawing%20Api.lua"))()
+
+local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
