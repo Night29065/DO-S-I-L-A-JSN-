@@ -1,0 +1,26 @@
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/REDzHUB/LibraryV2/main/redzLib")))()
+MakeWindow({
+  Hub = {
+    Title = "Starvast NEW",
+    Animation = "Starvast Productions"
+  },
+  Key = {
+    KeySystem = TRUE,
+    Title = "Key System",
+    Description = "",
+    KeyLink = "",
+    Keys = {"8013"},
+    Notifi = {
+      Notifications = true,
+      CorrectKey = "Running the Script...",
+      Incorrectkey = "The key is incorrect",
+      CopyKeyLink = "Copied to Clipboard"
+    }
+  }
+})
+
+local Main = MakeTab({Name = "Esp"})
+
+
+
+Local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/ESPs/main/3D%20Drawing%20Api.lua"))()
