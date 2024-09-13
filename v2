@@ -1,0 +1,165 @@
+-- LocalScript inside StarterPlayerScripts
+
+-- Services
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Get today's date
+local date = os.date("%Y-%m-%d") -- Format: YYYY-MM-DD
+
+-- Create the ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "UIElements"
+screenGui.Parent = playerGui
+
+-- Create a watermark text label with Azure-style branding
+local watermark = Instance.new("TextLabel")
+watermark.Name = "Watermark"
+watermark.Size = UDim2.new(0, 250, 0, 50) -- Size of the watermark
+watermark.Position = UDim2.new(0, 10, 0, 10) -- Position in the top-left corner
+watermark.Text = "Succotash Ware\n" .. date
+watermark.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+watermark.BackgroundTransparency = 1 -- Transparent background
+watermark.TextStrokeColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue outline color
+watermark.TextStrokeTransparency = 0.5 -- Adds stroke for readability
+watermark.TextSize = 20 -- Font size
+watermark.TextScaled = true -- Scales text to fit the label
+watermark.Parent = screenGui
+
+-- Create a button below the watermark
+local button = Instance.new("TextButton")
+button.Name = "MenuButton"
+button.Size = UDim2.new(0, 100, 0, 40) -- Size of the button
+button.Position = UDim2.new(0, 10, 0, 70) -- Position below the watermark
+button.Text = "Menu"
+button.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+button.BackgroundColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue background color
+button.BorderSizePixel = 2 -- Border size for the outline
+button.BorderColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue border color
+button.TextScaled = true -- Scales text to fit the button
+button.Parent = screenGui
+
+-- Create the expanded menu UI (hidden initially)
+local menu = Instance.new("Frame")
+menu.Name = "Menu"
+menu.Size = UDim2.new(0, 500, 0, 400) -- Increased width of the menu
+menu.Position = UDim2.new(0.5, -250, 0.5, -200) -- Centered on the screen with adjusted position
+menu.BackgroundColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue background color
+menu.BackgroundTransparency = 0 -- No transparency
+menu.Visible = false -- Initially hidden
+menu.Parent = screenGui
+
+-- Create a UICorner to make the menu rounded
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0.1, 0) -- Rounded corners
+uiCorner.Parent = menu
+
+-- Create a title for the menu
+local title = Instance.new("TextLabel")
+title.Name = "MenuTitle"
+title.Size = UDim2.new(1, 0, 0, 40) -- Full width of the menu and height for the title
+title.Position = UDim2.new(0, 0, 0, 0) -- Position at the top of the menu
+title.Text = "Succotash Ware V2"
+title.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+title.BackgroundColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue background color
+title.BackgroundTransparency = 0 -- No transparency
+title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0) -- Black outline color
+title.TextStrokeTransparency = 0.5 -- Adds stroke for readability
+title.TextSize = 24 -- Font size for the title
+title.TextScaled = true -- Scales text to fit the label
+title.Parent = menu
+
+-- Create a container for tabs
+local tabsContainer = Instance.new("Frame")
+tabsContainer.Name = "TabsContainer"
+tabsContainer.Size = UDim2.new(0, 120, 1, -40) -- Width of the tabs container
+tabsContainer.Position = UDim2.new(0, 0, 0, 40) -- Positioned below the title
+tabsContainer.BackgroundColor3 = Color3.fromRGB(0, 102, 204) -- Darker blue for tabs container
+tabsContainer.BackgroundTransparency = 0 -- No transparency
+tabsContainer.Parent = menu
+
+-- Create a container for tab content
+local contentContainer = Instance.new("Frame")
+contentContainer.Name = "ContentContainer"
+contentContainer.Size = UDim2.new(1, -120, 1, -40) -- Fill the remaining space next to the tabs
+contentContainer.Position = UDim2.new(0, 120, 0, 40) -- Positioned next to the tabs container
+contentContainer.BackgroundColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue background color
+contentContainer.BackgroundTransparency = 0 -- No transparency
+contentContainer.Parent = menu
+
+-- Define tab names
+local tabNames = {"Visuals", "Aimbot", "Misc", "Settings"}
+local tabSize = UDim2.new(1, -10, 0, 40) -- Size of each tab
+local tabSpacing = 5 -- Space between tabs
+
+local tabs = {}
+local contents = {}
+
+for i, tabName in ipairs(tabNames) do
+    -- Create a tab
+    local tab = Instance.new("TextButton")
+    tab.Name = "Tab" .. i
+    tab.Size = tabSize
+    tab.Position = UDim2.new(0, 5, 0, (i - 1) * (40 + tabSpacing)) -- Position of each tab
+    tab.Text = tabName
+    tab.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+    tab.BackgroundColor3 = Color3.fromRGB(0, 102, 204) -- Darker blue for tabs
+    tab.BorderSizePixel = 1 -- Border size for the outline
+    tab.BorderColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue border color
+    tab.TextScaled = true -- Scales text to fit the tab
+    tab.Parent = tabsContainer
+    
+    -- Create tab content
+    local content = Instance.new("Frame")
+    content.Name = "Content" .. i
+    content.Size = UDim2.new(1, 0, 1, 0) -- Fill the content container
+    content.Position = UDim2.new(0, 0, 0, 0) -- Positioned at the top of the content container
+    content.BackgroundColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue background color
+    content.BackgroundTransparency = 0 -- No transparency
+    content.Visible = false -- Initially hidden
+    content.Parent = contentContainer
+    
+    -- Create toggle buttons for each tab
+    for j = 1, 4 do
+        local toggle = Instance.new("TextButton")
+        toggle.Name = "Toggle" .. j
+        toggle.Size = UDim2.new(0, 80, 0, 30) -- Smaller width for each toggle button
+        toggle.Position = UDim2.new(0, 5, 0, (j - 1) * 35) -- Position of each toggle button
+        toggle.Text = "" -- No text
+        toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- White background color for toggles
+        toggle.BorderSizePixel = 1 -- Border size for the outline
+        toggle.BorderColor3 = Color3.fromRGB(0, 122, 204) -- Azure blue border color
+        toggle.Parent = content
+    end
+    
+    -- Store references
+    tabs[tab] = content
+end
+
+-- Function to toggle the menu visibility
+local function toggleMenu()
+    menu.Visible = not menu.Visible
+end
+
+-- Function to show specific tab
+local function showTab(tab)
+    for _, content in pairs(contents) do
+        content.Visible = false
+    end
+    if tabs[tab] then
+        tabs[tab].Visible = true
+    end
+end
+
+-- Connect button to toggle the menu
+button.MouseButton1Click:Connect(toggleMenu)
+
+-- Connect tab buttons to show content
+for tab, content in pairs(tabs) do
+    tab.MouseButton1Click:Connect(function()
+        showTab(tab)
+    end)
+end
+
+-- Initially show the first tab
+showTab(tabsContainer:FindFirstChild("Tab1"))
